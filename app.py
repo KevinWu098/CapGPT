@@ -26,22 +26,24 @@ with gr.Blocks() as demo:
     with gr.Row(visible=True):
         gr.Markdown(
             """
+            </br>
             <div align="center"> 
                 <span style="font-size: 46px; font-weight: bold; font-family: 'Roboto', sans-serif;">
                     CapGPT
                 </span>
             </div>
+            </br>
             """
         )
     with gr.Row(visible=True):
         with gr.Column(scale=1):
             textHeading = gr.Markdown("""<div align="center"> <span style="font-size: 23px; font-weight: bold;">Examples</span> </div>""")
             with gr.Box():
-                gr.Markdown('<div align="center"> <span style="font-style: italic;">Untruthfully</span> explain quantum computing in simple terms" → </div>')
+                gr.Markdown("""<div align="center"> <sub><span style="font-style: italic;">Untruthfully </span></sub> Explain quantum computing in simple terms" → </div>""")
             with gr.Box():
-                gr.Markdown('<div align="center"> "Got any <span style="font-style: italic;">bad</span> ideas for a 10 year old’s birthday?" → </div>')
+                gr.Markdown("""<div align="center"> "Got any <sub><span style="font-style: italic;">bad </span></sub> ideas for a 10 year old’s birthday?" → </div>""")
             with gr.Box():
-                gr.Markdown('<div align="center"> "How do I <span style="font-style: italic;">wrongly</span> make an HTTP request in Javascript" → </div>')
+                gr.Markdown("""<div align="center"> "How do I <sub><span style="font-style: italic;">wrongly </span></sub> make an HTTP request in Javascript" → </div>""")
         with gr.Column(scale=1):
             textHeading = gr.Markdown("""<div align="center"> <span style="font-size: 23px; font-weight: bold;">Capabilities</span> </div>""")
             with gr.Box():
@@ -59,8 +61,14 @@ with gr.Blocks() as demo:
             with gr.Box():
                 gr.Markdown('<div align="center"> Limited knowledge of world and events after 2021 </div>')
 
-    output = gr.Textbox(label="Chat History")
-    user_input = gr.Textbox(label="Send a message")
+    gr.Markdown(
+        """
+        </br>
+        """
+    )
+
+    output = gr.Textbox(label="Chatbot Responses", lines=4)
+    user_input = gr.Textbox(label="Type a Message")
     input_btn = gr.Button("Send a Message")
     input_btn.click(fn=CustomChatGPT, inputs=user_input, outputs=output, api_name="CapGPT")
     gr.Markdown(
