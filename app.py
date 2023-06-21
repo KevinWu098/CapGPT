@@ -67,7 +67,7 @@ with gr.Blocks() as demo:
         """
     )
 
-    output = gr.Textbox(label="Chatbot Responses", lines=4)
+    output = gr.Textbox(label="Chatbot Response", lines=4)
     user_input = gr.Textbox(label="Type a Message")
     input_btn = gr.Button("Send a Message")
     input_btn.click(fn=CustomChatGPT, inputs=user_input, outputs=output, api_name="CapGPT")
