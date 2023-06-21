@@ -3,10 +3,10 @@
 ---
 title: {{CapGPT}}
 emoji: {{🙃}}
-colorFrom: {{colorFrom}}
-colorTo: {{colorTo}}
-sdk: {{sdk}}
-sdk_version: {{sdkVersion}}
+colorFrom: {{blue}}
+colorTo: {{green}}
+sdk: {{gradio}}
+sdk_version: {{3.35.2}}
 app_file: app.py
 pinned: false
 ---
