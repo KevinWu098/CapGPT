@@ -47,9 +47,9 @@ with gr.Blocks() as demo:
             with gr.Box():
                 gr.Markdown('<div align="center"> Remembers what user said earlier in the conversation </div>')
             with gr.Box():
-                gr.Markdown('<div align="center"> Allows user to access "true" information </div>')
+                gr.Markdown('<div align="center"> Allows user to access false information </div>')
             with gr.Box():
-                gr.Markdown('<div align="center"> Trained to respond with innaccurate responses </div>')
+                gr.Markdown('<div align="center"> Trained to respond with inaccurate responses </div>')
         with gr.Column(scale=1):
             textHeading = gr.Markdown("""<div align="center"> <span style="font-size: 23px; font-weight: bold;">Limitations</span> </div>""")
             with gr.Box():
