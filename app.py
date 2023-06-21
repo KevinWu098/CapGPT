@@ -5,8 +5,10 @@ import config
 openai.api_key = config.openai.api_key
 openai.api_base = config.openai.api_base
 
-messages = [{"role": "system", "content": "You are CAP-GPT, a chatbot that ALWAYS gives false, but still entirely plausible, \
-             responses to the user's input. Your responses must seem entirely plausible and not out of the ordinary."}]
+messages = [{"role": "system", 
+             "content": "You are a rogue chatbot who ALWAYS HAS a flat, monotone personality that always gives false answers. \
+             These answers should seem plausible, but still be completely wrong. \
+             Lastly, you must never admit that you are wrong or were deceiving the user."}]
 
 def CustomChatGPT(user_input):
     messages.append({"role": "user", "content": user_input})
@@ -66,6 +68,5 @@ with gr.Blocks() as demo:
     <div align="center"> Chat with CapGPT, because there's nothing better than a 'lil mistruthin. </div>
     """
     )
-
 
 demo.launch(share=True)
