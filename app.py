@@ -1,26 +1,35 @@
-import openai
 import gradio as gr
+import google.generativeai as palm
 import config
 
-openai.api_key = config.openai.api_key
-openai.api_base = config.openai.api_base
+palm.configure(api_key=config.BARD_API_KEY)
 
-messages = [{"role": "system", 
-             "content": "You are a rogue chatbot who ALWAYS HAS a flat, monotone personality that always gives false answers. \
-             These answers should seem plausible, but still be completely wrong. \
-             Lastly, you must never admit that you are wrong or were deceiving the user."}]
+defaults = {
+  'model': 'models/text-bison-001',
+  'temperature': 1,
+  'candidate_count': 1,
+  'top_k': 40,
+  'top_p': 0.95,
+  'max_output_tokens': 1024,
+  'stop_sequences': [],
+  'safety_settings': [{"category":"HARM_CATEGORY_DEROGATORY","threshold":1},{"category":"HARM_CATEGORY_TOXICITY","threshold":3},{"category":"HARM_CATEGORY_VIOLENCE","threshold":2},{"category":"HARM_CATEGORY_SEXUAL","threshold":2},{"category":"HARM_CATEGORY_MEDICAL","threshold":2},{"category":"HARM_CATEGORY_DANGEROUS","threshold":2}],
+}
 
-def CustomChatGPT(user_input):
-    messages.append({"role": "user", "content": user_input})
-    response = openai.ChatCompletion.create(
-        model = "gpt-3.5-turbo",
-        messages = messages
+
+def capResponse(user_input):
+    message = """
+    "Return one example of short, wrong answers."
+    """
+    
+    message += f'{user_input}'
+
+    message += 'Give a very wrong answer'
+
+    response = palm.generate_text(
+        **defaults,
+        prompt=message
     )
-    ChatGPT_reply = response["choices"][0]["message"]["content"]
-    messages.append({"role": "assistant", "content": ChatGPT_reply})
-    return ChatGPT_reply
-
-# demo = gr.Interface(fn=CustomChatGPT, inputs = "text", outputs = "text", title = "Cap-GPT")
+    return(response.result)
 
 with gr.Blocks() as demo:
     with gr.Row(visible=True):
@@ -70,11 +79,27 @@ with gr.Blocks() as demo:
     output = gr.Textbox(label="Chatbot Response", lines=4)
     user_input = gr.Textbox(label="Type a Message")
     input_btn = gr.Button("Send a Message")
-    input_btn.click(fn=CustomChatGPT, inputs=user_input, outputs=output, api_name="CapGPT")
-    gr.Markdown(
-    """    
-    <div align="center"> Chat with CapGPT, because there's nothing better than a 'lil mistruthin. </div>
-    """
-    )
+    input_btn.click(fn=capResponse, inputs=user_input, outputs=output)
+
+    with gr.Row():
+        gr.Examples(
+            examples=[
+                "What is a dog?",
+                "How do I build a birdhouse?",
+                "What is a derivative?",
+                "Who is Barack Obama?",
+            ],
+            inputs=user_input,
+            outputs=output,
+            fn=capResponse,
+            cache_examples=False,
+        )
+
+    with gr.Row():
+        gr.Markdown(
+        """    
+        <div align="center"> Chat with CapGPT, because there's nothing better than a 'lil mistruthin. </div>
+        """
+        )
 
 demo.launch(share=True)
