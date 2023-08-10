@@ -19,7 +19,7 @@ For those of us who enjoy being "the rock in someone's shoe," or for those who s
 </p>
 
 ## Running CapGPT
-Access a live demo of SquishCV hosted on HuggingFace: [CapGPT](https://huggingface.co/spaces/hamlegs/CapGPT)
+Access a live demo of CapGPT hosted on HuggingFace: [CapGPT](https://huggingface.co/spaces/hamlegs/CapGPT)
 
 ## Built With:
 - Gradio
